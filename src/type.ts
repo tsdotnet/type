@@ -360,11 +360,11 @@ export namespace type
 
 	/**
 	 * Ensures an object is iterable if possible.
-	 * @throw If unable to coerce to iterable.
+	 * Returns null if unable to convert to iterable.
 	 * @param {Iterable<T> | ArrayLike<T>} instance
 	 * @return {Iterable<T>}
 	 */
-	export function asIterable<T> (instance: Iterable<T> | ArrayLike<T>): Iterable<T> | never
+	export function asIterable<T> (instance: Iterable<T> | ArrayLike<T>): Iterable<T> | null
 	{
 		if(isIterable(instance)) return instance;
 		if(isArrayLike(instance)) return {
@@ -379,7 +379,7 @@ export namespace type
 				}
 			}
 		};
-		throw TypeError('Unable to coerce instance to iterable.');
+		return null;
 	}
 }
 
