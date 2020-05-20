@@ -1,13 +1,22 @@
 {
   "name": "@tsdotnet/type",
   "version": "1.0.0",
-  "description": "",
+  "description": "A set of useful utility functions for JavaScript run-time type checking and inspection.",
   "author": "electricessence",
   "license": "MIT",
   "types": "dist/type.d.ts",
   "main": "dist/type.js",
   "module": "dist-esm/type.js",
-  "keywords": [],
+  "keywords": [
+    "typeof",
+    "primitive",
+    "property",
+    "member",
+    "type check",
+    "type checking",
+    "has member",
+    "has member of"
+  ],
   "scripts": {
     "build:dist": "rimraf dist/* && copyfiles -u 1 src/**/*.d.ts dist && tsc",
     "build:dist-esm": "rimraf dist-esm/* && tsc -p tsconfig.esm.json",
