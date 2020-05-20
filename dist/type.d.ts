@@ -173,11 +173,11 @@ export declare namespace type {
     export function isIterable<T>(instance: any): instance is Iterable<T>;
     /**
      * Ensures an object is iterable if possible.
-     * @throw If unable to coerce to iterable.
+     * Returns null if unable to convert to iterable.
      * @param {Iterable<T> | ArrayLike<T>} instance
      * @return {Iterable<T>}
      */
-    export function asIterable<T>(instance: Iterable<T> | ArrayLike<T>): Iterable<T> | never;
+    export function asIterable<T>(instance: Iterable<T> | ArrayLike<T>): Iterable<T> | null;
     export {};
 }
 export default type;

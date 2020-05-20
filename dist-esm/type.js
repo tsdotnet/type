@@ -212,7 +212,7 @@ export var type;
     type_1.isIterable = isIterable;
     /**
      * Ensures an object is iterable if possible.
-     * @throw If unable to coerce to iterable.
+     * Returns null if unable to convert to iterable.
      * @param {Iterable<T> | ArrayLike<T>} instance
      * @return {Iterable<T>}
      */
@@ -232,7 +232,7 @@ export var type;
                     }
                 }
             };
-        throw TypeError('Unable to coerce instance to iterable.');
+        return null;
     }
     type_1.asIterable = asIterable;
 })(type || (type = {}));
