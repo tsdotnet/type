@@ -140,10 +140,10 @@ export declare namespace type {
      * Returns true if a property or method exists on the object or its prototype.
      * @param instance
      * @param property Name of the member.
-     * @param ignoreUndefined When ignoreUndefined is true, if the member exists but is undefined, it will return false.
+     * @param verify When true, if the member exists but is undefined, it will return false.
      * @returns {boolean}
      */
-    export function hasMember(instance: any, property: PropertyKey, ignoreUndefined?: boolean): boolean;
+    export function hasMember(instance: any, property: PropertyKey, verify?: boolean): boolean;
     /**
      * Returns true if the member matches the type.
      * @param instance
@@ -171,6 +171,13 @@ export declare namespace type {
      * @return {instance is Iterable<T>}
      */
     export function isIterable<T>(instance: any): instance is Iterable<T>;
+    /**
+     * Ensures an object is iterable if possible.
+     * @throw If unable to coerce to iterable.
+     * @param {Iterable<T> | ArrayLike<T>} instance
+     * @return {Iterable<T>}
+     */
+    export function asIterable<T>(instance: Iterable<T> | ArrayLike<T>): Iterable<T> | never;
     export {};
 }
 export default type;

@@ -282,19 +282,19 @@ export namespace type
 	 * Returns true if a property or method exists on the object or its prototype.
 	 * @param instance
 	 * @param property Name of the member.
-	 * @param ignoreUndefined When ignoreUndefined is true, if the member exists but is undefined, it will return false.
+	 * @param verify When true, if the member exists but is undefined, it will return false.
 	 * @returns {boolean}
 	 */
 	export function hasMember (
 		instance: any,
 		property: PropertyKey,
-		ignoreUndefined: boolean = true): boolean
+		verify: boolean = false): boolean
 	{
 		return (
 			instance &&
 			!isPrimitive(instance) &&
 			property in instance &&
-			(ignoreUndefined || instance[property]!==undefined)
+			(!verify || instance[property]!==undefined)
 		);
 	}
 
@@ -358,6 +358,29 @@ export namespace type
 		return hasMemberOfType(instance, Symbol.iterator, Value.Function);
 	}
 
+	/**
+	 * Ensures an object is iterable if possible.
+	 * @throw If unable to coerce to iterable.
+	 * @param {Iterable<T> | ArrayLike<T>} instance
+	 * @return {Iterable<T>}
+	 */
+	export function asIterable<T> (instance: Iterable<T> | ArrayLike<T>): Iterable<T> | never
+	{
+		if(isIterable(instance)) return instance;
+		if(isArrayLike(instance)) return {
+			* [Symbol.iterator] (): Iterator<T>
+			{
+				const len = instance.length;
+				if(!isNumber(len)) throw new TypeError('ArrayLike object has a non-number length.');
+				for(let i = 0; i<len; i++)
+				{
+					if(len!==instance.length) throw new Error('instance.length value changed while iterating.');
+					yield instance[i];
+				}
+			}
+		};
+		throw TypeError('Unable to coerce instance to iterable.');
+	}
 }
 
 Object.freeze(type);

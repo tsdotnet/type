@@ -152,14 +152,14 @@ var type;
      * Returns true if a property or method exists on the object or its prototype.
      * @param instance
      * @param property Name of the member.
-     * @param ignoreUndefined When ignoreUndefined is true, if the member exists but is undefined, it will return false.
+     * @param verify When true, if the member exists but is undefined, it will return false.
      * @returns {boolean}
      */
-    function hasMember(instance, property, ignoreUndefined = true) {
+    function hasMember(instance, property, verify = false) {
         return (instance &&
             !isPrimitive(instance) &&
             property in instance &&
-            (ignoreUndefined || instance[property] !== undefined));
+            (!verify || instance[property] !== undefined));
     }
     type_1.hasMember = hasMember;
     /**
@@ -213,6 +213,31 @@ var type;
         return hasMemberOfType(instance, Symbol.iterator, "function" /* Function */);
     }
     type_1.isIterable = isIterable;
+    /**
+     * Ensures an object is iterable if possible.
+     * @throw If unable to coerce to iterable.
+     * @param {Iterable<T> | ArrayLike<T>} instance
+     * @return {Iterable<T>}
+     */
+    function asIterable(instance) {
+        if (isIterable(instance))
+            return instance;
+        if (isArrayLike(instance))
+            return {
+                *[Symbol.iterator]() {
+                    const len = instance.length;
+                    if (!isNumber(len))
+                        throw new TypeError('ArrayLike object has a non-number length.');
+                    for (let i = 0; i < len; i++) {
+                        if (len !== instance.length)
+                            throw new Error('instance.length value changed while iterating.');
+                        yield instance[i];
+                    }
+                }
+            };
+        throw TypeError('Unable to coerce instance to iterable.');
+    }
+    type_1.asIterable = asIterable;
 })(type = exports.type || (exports.type = {}));
 Object.freeze(type);
 exports.default = type;
