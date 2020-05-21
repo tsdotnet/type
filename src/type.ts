@@ -14,8 +14,6 @@ export namespace type
 {
 	export type Primitive = P;
 
-	export type PropertyKey = symbol | keyof any;
-
 	export const enum Value
 	{
 		Boolean   = 'boolean',
