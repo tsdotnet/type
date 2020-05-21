@@ -219,17 +219,42 @@ export declare namespace type {
     /**
      * Ensures an object is iterable if possible.
      * Returns null if unable to convert to iterable.
-     * @param {Iterable<T> | ArrayLike<T>} instance
-     * @return {Iterable<T>}
+     * @param {string} instance
+     * @return {null}
      */
-    export function asIterable<T>(instance: Iterable<T> | ArrayLike<T>): Iterable<T> | null;
+    export function asIterable(instance: string): null;
+    /**
+     * Ensures an object is iterable if possible.
+     * Returns null if unable to convert to iterable.
+     * @param {string} instance
+     * @param {false} allowString
+     * @return {null}
+     */
+    export function asIterable(instance: string, allowString: false): null;
+    /**
+     * Ensures an object is iterable if possible.
+     * Returns null if unable to convert to iterable.
+     * @param {string} instance
+     * @param {true} allowString
+     * @return {string}
+     */
+    export function asIterable(instance: string, allowString: true): string;
     /**
      * Ensures an object is iterable if possible.
      * Returns null if unable to convert to iterable.
      * @param {Iterable<T> | ArrayLike<T>} instance
-     * @return {Iterable<T>}
+     * @param {boolean} allowString
+     * @return {Iterable<T> | null}
      */
-    export function asIterable<T = unknown>(instance: unknown): Iterable<T> | null;
+    export function asIterable<T>(instance: Iterable<T> | ArrayLike<T>, allowString?: boolean): Iterable<T> | null;
+    /**
+     * Ensures an object is iterable if possible.
+     * Returns null if unable to convert to iterable.
+     * @param instance
+     * @param {boolean} allowString
+     * @return {Iterable<T> | null}
+     */
+    export function asIterable<T = unknown>(instance: unknown, allowString?: boolean): Iterable<T> | null;
     export {};
 }
 export default type;

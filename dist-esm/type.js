@@ -214,13 +214,14 @@ export var type;
     /**
      * Ensures an object is iterable if possible.
      * Returns null if unable to convert to iterable.
-     * @param {Iterable | ArrayLike} instance
-     * @return {Iterable}
+     * @param instance
+     * @param {boolean} allowString
+     * @return {Iterable<unknown> | null}
      */
-    function asIterable(instance) {
+    function asIterable(instance, allowString = false) {
         if (isIterable(instance))
             return instance;
-        if (isArrayLike(instance))
+        if ((allowString || typeof instance !== 'string') && isArrayLike(instance))
             return {
                 *[Symbol.iterator]() {
                     const len = instance.length;

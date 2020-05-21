@@ -181,6 +181,7 @@ describe('type', () => {
 	describe('.isIterable(instance)', () => {
 		it('should identify iterables', () => {
 			expect(type.isIterable(new A())).to.be.true;
+			expect(type.isIterable('hi')).to.be.false;
 			expect(type.isIterable({})).to.be.false;
 			expect(type.isIterable({length: 10})).to.be.false;
 		});
@@ -191,6 +192,8 @@ describe('type', () => {
 			const a = new A();
 			expect(type.asIterable(a)).equal(a);
 			expect(type.asIterable({})).to.be.null;
+			expect(type.asIterable('hello')).to.be.null;
+			expect(type.asIterable('hello', true)).not.to.be.null;
 			const e = type.asIterable({length: 10, 1: 'yes'});
 			expect(e).not.to.be.null;
 			let i = 0;

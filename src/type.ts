@@ -415,37 +415,79 @@ export namespace type
 	 * @param instance
 	 * @return {instance is Iterable<T>}
 	 */
-	export function isIterable<T = unknown> (instance: unknown): instance is Iterable<T>
+	export function isIterable<T = unknown> (
+		instance: unknown): instance is Iterable<T>
 	{
 		return hasMemberOfType(instance, Symbol.iterator, Value.Function);
 	}
 
+
 	/**
 	 * Ensures an object is iterable if possible.
 	 * Returns null if unable to convert to iterable.
-	 * @param {Iterable<T> | ArrayLike<T>} instance
-	 * @return {Iterable<T>}
+	 * @param {string} instance
+	 * @return {null}
 	 */
-	export function asIterable<T> (instance: Iterable<T> | ArrayLike<T>): Iterable<T> | null
+	export function asIterable (
+		instance: string): null
+
+	/**
+	 * Ensures an object is iterable if possible.
+	 * Returns null if unable to convert to iterable.
+	 * @param {string} instance
+	 * @param {false} allowString
+	 * @return {null}
+	 */
+	export function asIterable (
+		instance: string,
+		allowString: false): null
+
+	/**
+	 * Ensures an object is iterable if possible.
+	 * Returns null if unable to convert to iterable.
+	 * @param {string} instance
+	 * @param {true} allowString
+	 * @return {string}
+	 */
+	export function asIterable (
+		instance: string,
+		allowString: true): string
 
 	/**
 	 * Ensures an object is iterable if possible.
 	 * Returns null if unable to convert to iterable.
 	 * @param {Iterable<T> | ArrayLike<T>} instance
-	 * @return {Iterable<T>}
+	 * @param {boolean} allowString
+	 * @return {Iterable<T> | null}
 	 */
-	export function asIterable<T = unknown> (instance: unknown): Iterable<T> | null
+	export function asIterable<T> (
+		instance: Iterable<T> | ArrayLike<T>,
+		allowString?: boolean): Iterable<T> | null
 
 	/**
 	 * Ensures an object is iterable if possible.
 	 * Returns null if unable to convert to iterable.
-	 * @param {Iterable | ArrayLike} instance
-	 * @return {Iterable}
+	 * @param instance
+	 * @param {boolean} allowString
+	 * @return {Iterable<T> | null}
 	 */
-	export function asIterable (instance: unknown): Iterable<unknown> | null
+	export function asIterable<T = unknown> (
+		instance: unknown,
+		allowString?: boolean): Iterable<T> | null
+
+	/**
+	 * Ensures an object is iterable if possible.
+	 * Returns null if unable to convert to iterable.
+	 * @param instance
+	 * @param {boolean} allowString
+	 * @return {Iterable<unknown> | null}
+	 */
+	export function asIterable (
+		instance: unknown,
+		allowString: boolean = false): Iterable<unknown> | null
 	{
 		if(isIterable(instance)) return instance;
-		if(isArrayLike(instance)) return {
+		if((allowString || typeof instance!=='string') && isArrayLike(instance)) return {
 			* [Symbol.iterator] (): Iterator<unknown>
 			{
 				const len = instance.length;
