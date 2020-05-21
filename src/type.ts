@@ -14,7 +14,7 @@ export namespace type
 {
 	export type Primitive = P;
 
-	export type PropertyKey = string | number | symbol;
+	export type PropertyKey = symbol | keyof any;
 
 	export const enum Value
 	{
@@ -53,27 +53,27 @@ export namespace type
 
 	/**
 	 * Returns true if the target matches the type (instanceof).
-	 * @param target
+	 * @param instance
 	 * @param type
 	 * @returns {T|null}
 	 */
 	export function is<T extends object> (
-		target: object,
-		type: new (...params: any[]) => T): target is T
+		instance: object,
+		type: new (...params: any[]) => T): instance is T
 	{
-		return target instanceof type;
+		return instance instanceof type;
 	}
 
 	/**
 	 * Returns null if the target does not match the type (instanceof).
 	 * Otherwise returns the target as the type.
-	 * @param target
+	 * @param instance
 	 * @param type
 	 * @returns {T|null}
 	 */
-	export function as<T> (target: object, type: new (...params: any[]) => T): T | null
+	export function as<T> (instance: object, type: new (...params: any[]) => T): T | null
 	{
-		return target instanceof type ? target : null;
+		return instance instanceof type ? instance : null;
 	}
 
 	/**
@@ -81,7 +81,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isNullOrUndefined (value: any): value is null | undefined
+	export function isNullOrUndefined (value: unknown): value is null | undefined
 	{
 		return value==null;
 	}
@@ -91,9 +91,9 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isBoolean (value: any): value is boolean
+	export function isBoolean (value: unknown): value is boolean
 	{
-		return typeof value===Value.Boolean;
+		return typeof value==='boolean';
 	}
 
 	/**
@@ -102,9 +102,9 @@ export namespace type
 	 * @param ignoreNaN Default is false. When true, NaN is not considered a number and will return false.
 	 * @returns {boolean}
 	 */
-	export function isNumber (value: any, ignoreNaN: boolean = false): value is number
+	export function isNumber (value: unknown, ignoreNaN: boolean = false): value is number
 	{
-		return typeof value===Value.Number && (!ignoreNaN || !isNaN(value));
+		return typeof value==='number' && (!ignoreNaN || !isNaN(value));
 	}
 
 	/**
@@ -112,9 +112,9 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isTrueNaN (value: any): value is number
+	export function isTrueNaN (value: unknown): value is number
 	{
-		return typeof value===Value.Number && isNaN(value);
+		return typeof value==='number' && isNaN(value);
 	}
 
 	/**
@@ -122,9 +122,9 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isString (value: any): value is string
+	export function isString (value: unknown): value is string
 	{
-		return typeof value===Value.String;
+		return typeof value==='string';
 	}
 
 	/**
@@ -132,7 +132,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isPrimitive (value: any): value is NullablePrimitive
+	export function isPrimitive (value: unknown): value is NullablePrimitive
 
 
 	/**
@@ -141,7 +141,7 @@ export namespace type
 	 * @param allowUndefined
 	 * @returns {boolean}
 	 */
-	export function isPrimitive (value: any, allowUndefined: false): value is NullablePrimitive
+	export function isPrimitive (value: unknown, allowUndefined: false): value is NullablePrimitive
 
 	/**
 	 * Returns true if the value is a boolean, string, number, null, or undefined.
@@ -150,7 +150,7 @@ export namespace type
 	 * @returns {boolean}
 	 */
 	export function isPrimitive (
-		value: any,
+		value: unknown,
 		allowUndefined: boolean): value is NullablePrimitive | undefined
 
 	/**
@@ -160,7 +160,7 @@ export namespace type
 	 * @returns {boolean}
 	 */
 	export function isPrimitive (
-		value: any,
+		value: unknown,
 		allowUndefined: boolean = false): value is NullablePrimitive | undefined
 	{
 		const t = typeof value;
@@ -184,7 +184,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isPrimitiveOrSymbol (value: any): value is NullablePrimitive | symbol
+	export function isPrimitiveOrSymbol (value: unknown): value is NullablePrimitive | symbol
 
 	/**
 	 * For detecting if the value can be used as a key.
@@ -193,7 +193,7 @@ export namespace type
 	 * @returns {boolean}
 	 */
 	export function isPrimitiveOrSymbol (
-		value: any,
+		value: unknown,
 		allowUndefined: false): value is NullablePrimitive | symbol
 
 	/**
@@ -203,7 +203,7 @@ export namespace type
 	 * @returns {boolean}
 	 */
 	export function isPrimitiveOrSymbol (
-		value: any,
+		value: unknown,
 		allowUndefined: boolean): value is NullablePrimitive | symbol | undefined
 
 	/**
@@ -213,10 +213,10 @@ export namespace type
 	 * @returns {boolean}
 	 */
 	export function isPrimitiveOrSymbol (
-		value: any,
+		value: unknown,
 		allowUndefined: boolean = false): value is NullablePrimitive | symbol | undefined
 	{
-		return typeof value===Value.Symbol ? true : isPrimitive(value, allowUndefined);
+		return typeof value===Value.Symbol || isPrimitive(value, allowUndefined);
 	}
 
 	/**
@@ -224,7 +224,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isPropertyKey (value: any): value is PropertyKey
+	export function isPropertyKey (value: unknown): value is PropertyKey
 	{
 		const t = typeof value;
 		switch(t)
@@ -242,9 +242,9 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isFunction (value: any): value is (...params: any[]) => any
+	export function isFunction (value: unknown): value is (...params: any[]) => unknown
 	{
-		return typeof value===Value.Function;
+		return typeof value==='function';
 	}
 
 	/**
@@ -252,7 +252,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isObject (value: any): value is object
+	export function isObject (value: unknown): value is object
 
 	/**
 	 * Returns true if the value parameter is an object.
@@ -260,9 +260,9 @@ export namespace type
 	 * @param allowNull If false (default) null is not considered an object.
 	 * @returns {boolean}
 	 */
-	export function isObject (value: any, allowNull: false): value is object
-	export function isObject (value: any, allowNull: boolean): value is object | null
-	export function isObject (value: any, allowNull: boolean = false): value is object | null
+	export function isObject (value: unknown, allowNull: false): value is object
+	export function isObject (value: unknown, allowNull: boolean): value is object | null
+	export function isObject (value: unknown, allowNull: boolean = false): value is object | null
 	{
 		return typeof value===Value.Object && (allowNull || value!==null);
 	}
@@ -272,9 +272,9 @@ export namespace type
 	 * @param value
 	 * @returns {number}
 	 */
-	export function numberOrNaN (value: any): number
+	export function numberOrNaN (value: unknown): number
 	{
-		return isNaN(value) ? NaN : value;
+		return typeof value==='number' ? value : NaN;
 	}
 
 	/**
@@ -285,18 +285,79 @@ export namespace type
 	 * @param verify When true, if the member exists but is undefined, it will return false.
 	 * @returns {boolean}
 	 */
-	export function hasMember (
-		instance: any,
-		property: PropertyKey,
-		verify: boolean = false): boolean
+	export function hasMember<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		verify: boolean = false): instance is { [P in K]: unknown } & T
 	{
 		return (
 			instance &&
 			!isPrimitive(instance) &&
-			property in instance &&
-			(!verify || instance[property]!==undefined)
+			property in (instance as object) &&
+			(!verify || (instance as any)[property]!==undefined)
 		);
 	}
+
+	/**
+	 * Returns true if the member is a string.
+	 * @param instance
+	 * @param {K} property
+	 * @param {"string"} type
+	 * @return {instance is {[P in K]: string} & T}
+	 */
+	export function hasMemberOfType<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		type: 'string'): instance is { [P in K]: string } & T;
+
+	/**
+	 * Returns true if the member is a number.
+	 * @param instance
+	 * @param {K} property
+	 * @param {"number"} type
+	 * @return {instance is {[P in K]: number} & T}
+	 */
+	export function hasMemberOfType<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		type: 'number'): instance is { [P in K]: number } & T;
+
+	/**
+	 * Returns true if the member is a boolean.
+	 * @param instance
+	 * @param {K} property
+	 * @param {"boolean"} type
+	 * @return {instance is {[P in K]: boolean} & T}
+	 */
+	export function hasMemberOfType<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		type: 'boolean'): instance is { [P in K]: boolean } & T;
+
+	/**
+	 * Returns true if the member is a object.
+	 * @param instance
+	 * @param {K} property
+	 * @param {"object"} type
+	 * @return {instance is {[P in K]: object} & T}
+	 */
+	export function hasMemberOfType<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		type: 'object'): instance is { [P in K]: object } & T;
+
+	/**
+	 * Returns true if the member is a Function.
+	 * @param instance
+	 * @param {K} property
+	 * @param {"function"} type
+	 * @return {instance is {[P in K]: Function} & T}
+	 */
+	export function hasMemberOfType<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		property: K,
+		type: 'function'): instance is { [P in K]: Function } & T;
+
 
 	/**
 	 * Returns true if the member matches the type.
@@ -305,23 +366,26 @@ export namespace type
 	 * @param type
 	 * @returns {boolean}
 	 */
-	export function hasMemberOfType<T> (
-		instance: any,
+	export function hasMemberOfType (
+		instance: unknown,
 		property: PropertyKey,
-		type: Literal): instance is T
+		type: Literal): boolean
 	{
-		return hasMember(instance, property) && typeof instance[property]===type;
+		return hasMember(instance, property)
+			&& typeof instance[property as any]===type;
 	}
 
 	/**
-	 * Tests to see if an object has a function of the provide name.
+	 * Tests to see if an object has a function of the specified name.
 	 * @param instance
-	 * @param {string} name
-	 * @returns {instance is T}
+	 * @param {K} name
+	 * @return {instance is {[P in K]: Function} & T}
 	 */
-	export function hasMethod<T> (instance: any, name: PropertyKey): instance is T
+	export function hasMethod<T = unknown, K extends PropertyKey = keyof T> (
+		instance: unknown,
+		name: K): instance is { [P in K]: (...params: any[]) => unknown } & T
 	{
-		return hasMemberOfType<T>(instance, name, Value.Function);
+		return hasMemberOfType(instance, name, 'function');
 	}
 
 	/**
@@ -329,7 +393,7 @@ export namespace type
 	 * @param instance
 	 * @returns {instance is ArrayLikeWritable<T>}
 	 */
-	export function isArrayLike<T> (instance: any): instance is ArrayLikeWritable<T>
+	export function isArrayLike<T = unknown> (instance: unknown): instance is ArrayLikeWritable<T>
 	{
 		/*
 		 * NOTE:
@@ -353,7 +417,7 @@ export namespace type
 	 * @param instance
 	 * @return {instance is Iterable<T>}
 	 */
-	export function isIterable<T> (instance: any): instance is Iterable<T>
+	export function isIterable<T = unknown> (instance: unknown): instance is Iterable<T>
 	{
 		return hasMemberOfType(instance, Symbol.iterator, Value.Function);
 	}
@@ -372,15 +436,15 @@ export namespace type
 	 * @param {Iterable<T> | ArrayLike<T>} instance
 	 * @return {Iterable<T>}
 	 */
-	export function asIterable<T = unknown> (instance: any): Iterable<T> | null
+	export function asIterable<T = unknown> (instance: unknown): Iterable<T> | null
 
 	/**
 	 * Ensures an object is iterable if possible.
 	 * Returns null if unable to convert to iterable.
-	 * @param {Iterable<T> | ArrayLike<T>} instance
-	 * @return {Iterable<T>}
+	 * @param {Iterable | ArrayLike} instance
+	 * @return {Iterable}
 	 */
-	export function asIterable (instance: any): Iterable<unknown> | null
+	export function asIterable (instance: unknown): Iterable<unknown> | null
 	{
 		if(isIterable(instance)) return instance;
 		if(isArrayLike(instance)) return {

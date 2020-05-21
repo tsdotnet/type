@@ -13,23 +13,23 @@ var type;
 (function (type_1) {
     /**
      * Returns true if the target matches the type (instanceof).
-     * @param target
+     * @param instance
      * @param type
      * @returns {T|null}
      */
-    function is(target, type) {
-        return target instanceof type;
+    function is(instance, type) {
+        return instance instanceof type;
     }
     type_1.is = is;
     /**
      * Returns null if the target does not match the type (instanceof).
      * Otherwise returns the target as the type.
-     * @param target
+     * @param instance
      * @param type
      * @returns {T|null}
      */
-    function as(target, type) {
-        return target instanceof type ? target : null;
+    function as(instance, type) {
+        return instance instanceof type ? instance : null;
     }
     type_1.as = as;
     /**
@@ -47,7 +47,7 @@ var type;
      * @returns {boolean}
      */
     function isBoolean(value) {
-        return typeof value === "boolean" /* Boolean */;
+        return typeof value === 'boolean';
     }
     type_1.isBoolean = isBoolean;
     /**
@@ -57,7 +57,7 @@ var type;
      * @returns {boolean}
      */
     function isNumber(value, ignoreNaN = false) {
-        return typeof value === "number" /* Number */ && (!ignoreNaN || !isNaN(value));
+        return typeof value === 'number' && (!ignoreNaN || !isNaN(value));
     }
     type_1.isNumber = isNumber;
     /**
@@ -66,7 +66,7 @@ var type;
      * @returns {boolean}
      */
     function isTrueNaN(value) {
-        return typeof value === "number" /* Number */ && isNaN(value);
+        return typeof value === 'number' && isNaN(value);
     }
     type_1.isTrueNaN = isTrueNaN;
     /**
@@ -75,7 +75,7 @@ var type;
      * @returns {boolean}
      */
     function isString(value) {
-        return typeof value === "string" /* String */;
+        return typeof value === 'string';
     }
     type_1.isString = isString;
     /**
@@ -106,7 +106,7 @@ var type;
      * @returns {boolean}
      */
     function isPrimitiveOrSymbol(value, allowUndefined = false) {
-        return typeof value === "symbol" /* Symbol */ ? true : isPrimitive(value, allowUndefined);
+        return typeof value === "symbol" /* Symbol */ || isPrimitive(value, allowUndefined);
     }
     type_1.isPrimitiveOrSymbol = isPrimitiveOrSymbol;
     /**
@@ -131,7 +131,7 @@ var type;
      * @returns {boolean}
      */
     function isFunction(value) {
-        return typeof value === "function" /* Function */;
+        return typeof value === 'function';
     }
     type_1.isFunction = isFunction;
     function isObject(value, allowNull = false) {
@@ -144,7 +144,7 @@ var type;
      * @returns {number}
      */
     function numberOrNaN(value) {
-        return isNaN(value) ? NaN : value;
+        return typeof value === 'number' ? value : NaN;
     }
     type_1.numberOrNaN = numberOrNaN;
     /**
@@ -170,17 +170,18 @@ var type;
      * @returns {boolean}
      */
     function hasMemberOfType(instance, property, type) {
-        return hasMember(instance, property) && typeof instance[property] === type;
+        return hasMember(instance, property)
+            && typeof instance[property] === type;
     }
     type_1.hasMemberOfType = hasMemberOfType;
     /**
-     * Tests to see if an object has a function of the provide name.
+     * Tests to see if an object has a function of the specified name.
      * @param instance
-     * @param {string} name
-     * @returns {instance is T}
+     * @param {K} name
+     * @return {instance is {[P in K]: Function} & T}
      */
     function hasMethod(instance, name) {
-        return hasMemberOfType(instance, name, "function" /* Function */);
+        return hasMemberOfType(instance, name, 'function');
     }
     type_1.hasMethod = hasMethod;
     /**
@@ -216,8 +217,8 @@ var type;
     /**
      * Ensures an object is iterable if possible.
      * Returns null if unable to convert to iterable.
-     * @param {Iterable<T> | ArrayLike<T>} instance
-     * @return {Iterable<T>}
+     * @param {Iterable | ArrayLike} instance
+     * @return {Iterable}
      */
     function asIterable(instance) {
         if (isIterable(instance))
