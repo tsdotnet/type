@@ -6,6 +6,7 @@
  * Note: 'type' is essentially a static class with method names that would easily collide without a namespace.
  * We have to export it as well as default so TypeDoc picks it up.
  */
+/* eslint-disable @typescript-eslint/ban-types */
 export var type;
 (function (type_1) {
     /**
