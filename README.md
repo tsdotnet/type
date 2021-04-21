@@ -8,4 +8,4 @@ A set of useful utility functions for JavaScript run-time type checking and insp
 
 ## Docs
 
-[tsdotnet.github.io/type](https://tsdotnet.github.io/type/modules/_type_.type.html)
+[tsdotnet.github.io/type](https://tsdotnet.github.io/type/modules/type.html)
