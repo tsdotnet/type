@@ -157,7 +157,7 @@ var type;
      * @returns {boolean}
      */
     function hasMember(instance, property, verify = false) {
-        return (instance &&
+        return (instance != null &&
             !isPrimitive(instance) &&
             property in instance &&
             (!verify || instance[property] !== undefined));

@@ -291,7 +291,7 @@ export namespace type
 		verify: boolean = false): instance is { [P in K]: unknown } & T
 	{
 		return (
-			instance &&
+			instance!=null &&
 			!isPrimitive(instance) &&
 			property in (instance as object) &&
 			(!verify || (instance as any)[property]!==undefined)
