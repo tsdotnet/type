@@ -27,19 +27,19 @@ export namespace type
 		Function  = 'function',
 	}
 
-	type Name<T> = T extends symbol
+	export type Name<T> = T extends symbol
 		? 'symbol'
 		: T extends string
-			? 'string'
-			: T extends number
-				? 'number'
-				: T extends boolean
-					? 'boolean'
-					: T extends undefined
-						? 'undefined'
-						: T extends Function
-							? 'function'
-							: 'object';
+		? 'string'
+		: T extends number
+		? 'number'
+		: T extends boolean
+		? 'boolean'
+		: T extends undefined
+		? 'undefined'
+		: T extends Function
+		? 'function'
+		: 'object';
 
 	export type Literal =
 		Name<symbol>
