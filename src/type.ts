@@ -132,7 +132,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isPrimitive (value: unknown): value is NullablePrimitive
+	export function isPrimitive (value: unknown): value is NullablePrimitive;
 
 
 	/**
@@ -141,7 +141,7 @@ export namespace type
 	 * @param allowUndefined
 	 * @returns {boolean}
 	 */
-	export function isPrimitive (value: unknown, allowUndefined: false): value is NullablePrimitive
+	export function isPrimitive (value: unknown, allowUndefined: false): value is NullablePrimitive;
 
 	/**
 	 * Returns true if the value is a boolean, string, number, null, or undefined.
@@ -151,7 +151,7 @@ export namespace type
 	 */
 	export function isPrimitive (
 		value: unknown,
-		allowUndefined: boolean): value is NullablePrimitive | undefined
+		allowUndefined: boolean): value is NullablePrimitive | undefined;
 
 	/**
 	 * Returns true if the value is a boolean, string, number, null, or undefined.
@@ -184,7 +184,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isPrimitiveOrSymbol (value: unknown): value is NullablePrimitive | symbol
+	export function isPrimitiveOrSymbol (value: unknown): value is NullablePrimitive | symbol;
 
 	/**
 	 * For detecting if the value can be used as a key.
@@ -194,7 +194,7 @@ export namespace type
 	 */
 	export function isPrimitiveOrSymbol (
 		value: unknown,
-		allowUndefined: false): value is NullablePrimitive | symbol
+		allowUndefined: false): value is NullablePrimitive | symbol;
 
 	/**
 	 * For detecting if the value can be used as a key.
@@ -204,7 +204,7 @@ export namespace type
 	 */
 	export function isPrimitiveOrSymbol (
 		value: unknown,
-		allowUndefined: boolean): value is NullablePrimitive | symbol | undefined
+		allowUndefined: boolean): value is NullablePrimitive | symbol | undefined;
 
 	/**
 	 * For detecting if the value can be used as a key.
@@ -252,7 +252,7 @@ export namespace type
 	 * @param value
 	 * @returns {boolean}
 	 */
-	export function isObject (value: unknown): value is object
+	export function isObject (value: unknown): value is object;
 
 	/**
 	 * Returns true if the value parameter is an object.
@@ -260,8 +260,8 @@ export namespace type
 	 * @param allowNull If false (default) null is not considered an object.
 	 * @returns {boolean}
 	 */
-	export function isObject (value: unknown, allowNull: false): value is object
-	export function isObject (value: unknown, allowNull: boolean): value is object | null
+	export function isObject (value: unknown, allowNull: false): value is object;
+	export function isObject (value: unknown, allowNull: boolean): value is object | null;
 	export function isObject (value: unknown, allowNull: boolean = false): value is object | null
 	{
 		return typeof value===Value.Object && (allowNull || value!==null);
@@ -431,7 +431,7 @@ export namespace type
 	 * @return {null}
 	 */
 	export function asIterable (
-		instance: string): null
+		instance: string): null;
 
 	/**
 	 * Ensures an object is iterable if possible.
@@ -442,7 +442,7 @@ export namespace type
 	 */
 	export function asIterable (
 		instance: string,
-		allowString: false): null
+		allowString: false): null;
 
 	/**
 	 * Ensures an object is iterable if possible.
@@ -453,7 +453,7 @@ export namespace type
 	 */
 	export function asIterable (
 		instance: string,
-		allowString: true): string
+		allowString: true): string;
 
 	/**
 	 * Ensures an object is iterable if possible.
@@ -464,7 +464,7 @@ export namespace type
 	 */
 	export function asIterable<T> (
 		instance: Iterable<T> | ArrayLike<T>,
-		allowString?: boolean): Iterable<T> | null
+		allowString?: boolean): Iterable<T> | null;
 
 	/**
 	 * Ensures an object is iterable if possible.
@@ -475,7 +475,7 @@ export namespace type
 	 */
 	export function asIterable<T = unknown> (
 		instance: unknown,
-		allowString?: boolean): Iterable<T> | null
+		allowString?: boolean): Iterable<T> | null;
 
 	/**
 	 * Ensures an object is iterable if possible.
