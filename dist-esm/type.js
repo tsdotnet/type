@@ -85,13 +85,13 @@ export var type;
     function isPrimitive(value, allowUndefined = false) {
         const t = typeof value;
         switch (t) {
-            case "boolean" /* Boolean */:
-            case "string" /* String */:
-            case "number" /* Number */:
+            case "boolean" /* Value.Boolean */:
+            case "string" /* Value.String */:
+            case "number" /* Value.Number */:
                 return true;
-            case "undefined" /* Undefined */:
+            case "undefined" /* Value.Undefined */:
                 return allowUndefined;
-            case "object" /* Object */:
+            case "object" /* Value.Object */:
                 return value === null;
         }
         return false;
@@ -104,7 +104,7 @@ export var type;
      * @returns {boolean}
      */
     function isPrimitiveOrSymbol(value, allowUndefined = false) {
-        return typeof value === "symbol" /* Symbol */ || isPrimitive(value, allowUndefined);
+        return typeof value === "symbol" /* Value.Symbol */ || isPrimitive(value, allowUndefined);
     }
     type_1.isPrimitiveOrSymbol = isPrimitiveOrSymbol;
     /**
@@ -115,9 +115,9 @@ export var type;
     function isPropertyKey(value) {
         const t = typeof value;
         switch (t) {
-            case "string" /* String */:
-            case "number" /* Number */:
-            case "symbol" /* Symbol */:
+            case "string" /* Value.String */:
+            case "number" /* Value.Number */:
+            case "symbol" /* Value.Symbol */:
                 return true;
         }
         return false;
@@ -133,7 +133,7 @@ export var type;
     }
     type_1.isFunction = isFunction;
     function isObject(value, allowNull = false) {
-        return typeof value === "object" /* Object */ && (allowNull || value !== null);
+        return typeof value === "object" /* Value.Object */ && (allowNull || value !== null);
     }
     type_1.isObject = isObject;
     /**
@@ -209,7 +209,7 @@ export var type;
      * @return {instance is Iterable<T>}
      */
     function isIterable(instance) {
-        return hasMemberOfType(instance, Symbol.iterator, "function" /* Function */);
+        return hasMemberOfType(instance, Symbol.iterator, "function" /* Value.Function */);
     }
     type_1.isIterable = isIterable;
     /**
