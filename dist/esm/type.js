@@ -1,15 +1,12 @@
-"use strict";
 /*!
  * @author electricessence / https://github.com/electricessence/
  * Licensing: MIT
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.type = void 0;
 /*
  * Note: 'type' is essentially a static class with method names that would easily collide without a namespace.
  * We have to export it as well as default so TypeDoc picks it up.
  */
-var type;
+export var type;
 (function (type_1) {
     /**
      * Returns true if the target matches the type (instanceof).
@@ -240,7 +237,7 @@ var type;
         return null;
     }
     type_1.asIterable = asIterable;
-})(type || (exports.type = type = {}));
+})(type || (type = {}));
 Object.freeze(type);
-exports.default = type;
+export default type;
 //# sourceMappingURL=type.js.map
