@@ -9,7 +9,6 @@ exports.type = void 0;
  * Note: 'type' is essentially a static class with method names that would easily collide without a namespace.
  * We have to export it as well as default so TypeDoc picks it up.
  */
-/* eslint-disable @typescript-eslint/ban-types */
 var type;
 (function (type_1) {
     /**
@@ -241,7 +240,7 @@ var type;
         return null;
     }
     type_1.asIterable = asIterable;
-})(type = exports.type || (exports.type = {}));
+})(type || (exports.type = type = {}));
 Object.freeze(type);
 exports.default = type;
 //# sourceMappingURL=type.js.map

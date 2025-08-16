@@ -10,8 +10,6 @@ import {ArrayLikeWritable, NullablePrimitive, Primitive as P} from '@tsdotnet/co
  * We have to export it as well as default so TypeDoc picks it up.
  */
 
-/* eslint-disable @typescript-eslint/ban-types */
-
 export namespace type
 {
 	export type Primitive = P;
