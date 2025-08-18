@@ -2,7 +2,7 @@
  * @author electricessence / https://github.com/electricessence/
  * Licensing: MIT
  */
-export var type;
+var type;
 (function (type_1) {
     function is(instance, type) {
         return instance instanceof type;
@@ -121,5 +121,7 @@ export var type;
     type_1.asIterable = asIterable;
 })(type || (type = {}));
 Object.freeze(type);
-export default type;
+var type$1 = type;
+
+export { type$1 as default, type };
 //# sourceMappingURL=type.js.map
