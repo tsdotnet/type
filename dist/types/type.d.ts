@@ -5,7 +5,7 @@
 import { ArrayLikeWritable, NullablePrimitive, Primitive as P } from '@tsdotnet/common-interfaces';
 export declare namespace type {
     type Primitive = P;
-    const enum Value {
+    enum Value {
         Boolean = "boolean",
         Number = "number",
         String = "string",

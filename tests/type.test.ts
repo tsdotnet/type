@@ -212,4 +212,73 @@ describe('type', () => {
 			expect(i).equal(10);
 		});
 	});
+
+	describe('hasMemberOfType function', () => {
+		it('should check if object has member of specific type', () => {
+			const objWithThen = { then: () => {} };
+			const objWithoutThen = { other: 'value' };
+			const objWithThenNonFunction = { then: 'not a function' };
+
+			// Test the function exists and works
+			expect(type.hasMemberOfType).toBeDefined();
+			expect(typeof type.hasMemberOfType).toBe('function');
+
+			// Test functionality - use string literal instead of const enum
+			expect(type.hasMemberOfType(objWithThen, 'then', 'function')).toBe(true);
+			expect(type.hasMemberOfType(objWithoutThen, 'then', 'function')).toBe(false);
+			expect(type.hasMemberOfType(objWithThenNonFunction, 'then', 'function')).toBe(false);
+			
+			// Test with null/undefined
+			expect(type.hasMemberOfType(null, 'then', 'function')).toBe(false);
+			expect(type.hasMemberOfType(undefined, 'then', 'function')).toBe(false);
+		});
+
+		it('should verify that Value enum values work', () => {
+			// Test that the actual enum values resolve correctly
+			const functionType = type.Value.Function;
+			expect(functionType).toBe('function');
+			console.log('type.Value.Function resolves to:', functionType);
+		});
+
+		it('should test promise-like object detection like promises package does', () => {
+			const promise = Promise.resolve(42);
+			const thenable = { then: (onFulfilled: any) => onFulfilled(42) };
+			const notThenable = { other: 'value' };
+
+			console.log('Testing promise detection...');
+			console.log('type default export:', type);
+			console.log('type.hasMemberOfType exists:', !!type.hasMemberOfType);
+			
+			// This is the exact pattern from Promise.ts that was failing
+			const THEN = 'then';
+			console.log('Testing pattern: typeUtil.hasMemberOfType(value, THEN, typeUtil.Value.Function)');
+			
+			try {
+				const result1 = type.hasMemberOfType(promise, THEN, type.Value.Function);
+				console.log('Promise test result:', result1);
+				expect(result1).toBe(true);
+			} catch (error) {
+				console.error('Error testing promise:', error);
+				throw error;
+			}
+
+			try {
+				const result2 = type.hasMemberOfType(thenable, THEN, type.Value.Function);
+				console.log('Thenable test result:', result2);
+				expect(result2).toBe(true);
+			} catch (error) {
+				console.error('Error testing thenable:', error);
+				throw error;
+			}
+
+			try {
+				const result3 = type.hasMemberOfType(notThenable, THEN, type.Value.Function);
+				console.log('Non-thenable test result:', result3);
+				expect(result3).toBe(false);
+			} catch (error) {
+				console.error('Error testing non-thenable:', error);
+				throw error;
+			}
+		});
+	});
 });

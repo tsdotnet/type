@@ -14,7 +14,7 @@ export namespace type
 {
 	export type Primitive = P;
 
-	export const enum Value
+	export enum Value
 	{
 		Boolean   = 'boolean',
 		Number    = 'number',
@@ -262,7 +262,7 @@ export namespace type
 	export function isObject (value: unknown, allowNull: boolean): value is object | null;
 	export function isObject (value: unknown, allowNull: boolean = false): value is object | null
 	{
-		return typeof value===Value.Object && (allowNull || value!==null);
+		return typeof value==='object' && (allowNull || value!==null);
 	}
 
 	/**

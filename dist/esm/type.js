@@ -4,6 +4,16 @@
  */
 var type;
 (function (type_1) {
+    let Value;
+    (function (Value) {
+        Value["Boolean"] = "boolean";
+        Value["Number"] = "number";
+        Value["String"] = "string";
+        Value["Symbol"] = "symbol";
+        Value["Object"] = "object";
+        Value["Undefined"] = "undefined";
+        Value["Function"] = "function";
+    })(Value = type_1.Value || (type_1.Value = {}));
     function is(instance, type) {
         return instance instanceof type;
     }
@@ -35,28 +45,28 @@ var type;
     function isPrimitive(value, allowUndefined = false) {
         const t = typeof value;
         switch (t) {
-            case "boolean":
-            case "string":
-            case "number":
+            case Value.Boolean:
+            case Value.String:
+            case Value.Number:
                 return true;
-            case "undefined":
+            case Value.Undefined:
                 return allowUndefined;
-            case "object":
+            case Value.Object:
                 return value === null;
         }
         return false;
     }
     type_1.isPrimitive = isPrimitive;
     function isPrimitiveOrSymbol(value, allowUndefined = false) {
-        return typeof value === "symbol" || isPrimitive(value, allowUndefined);
+        return typeof value === Value.Symbol || isPrimitive(value, allowUndefined);
     }
     type_1.isPrimitiveOrSymbol = isPrimitiveOrSymbol;
     function isPropertyKey(value) {
         const t = typeof value;
         switch (t) {
-            case "string":
-            case "number":
-            case "symbol":
+            case Value.String:
+            case Value.Number:
+            case Value.Symbol:
                 return true;
         }
         return false;
@@ -67,7 +77,7 @@ var type;
     }
     type_1.isFunction = isFunction;
     function isObject(value, allowNull = false) {
-        return typeof value === "object" && (allowNull || value !== null);
+        return typeof value === 'object' && (allowNull || value !== null);
     }
     type_1.isObject = isObject;
     function numberOrNaN(value) {
@@ -97,7 +107,7 @@ var type;
     }
     type_1.isArrayLike = isArrayLike;
     function isIterable(instance) {
-        return hasMemberOfType(instance, Symbol.iterator, "function");
+        return hasMemberOfType(instance, Symbol.iterator, Value.Function);
     }
     type_1.isIterable = isIterable;
     function asIterable(instance, allowString = false) {
