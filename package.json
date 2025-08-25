@@ -1,6 +1,6 @@
 {
   "name": "@tsdotnet/type",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A set of useful utility functions for JavaScript run-time type checking and inspection.",
   "author": "electricessence",
   "license": "MIT",
