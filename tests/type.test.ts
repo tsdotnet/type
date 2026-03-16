@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type from '../src/type';
+import type from '../src/type.js';
 import numberOrNaN = type.numberOrNaN;
 
 describe('type', () => {

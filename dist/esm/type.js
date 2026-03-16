@@ -131,7 +131,7 @@ var type;
     type_1.asIterable = asIterable;
 })(type || (type = {}));
 Object.freeze(type);
-var type$1 = type;
+var type_default = type;
 
-export { type$1 as default, type };
+export { type_default as default, type };
 //# sourceMappingURL=type.js.map
