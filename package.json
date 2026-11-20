@@ -96,7 +96,7 @@
     "vitest": "^5.1.1"
   },
   "dependencies": {
-    "@tsdotnet/common-interfaces": "^1.0.6",
+    "@tsdotnet/common-interfaces": "^1.0.7",
     "tslib": "^2.9.1"
   },
   "pnpm": {
