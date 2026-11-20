@@ -1,4 +1,4 @@
-![@tsdotnet/type: Check types at run time. Guards that narrow, not just test.](https://cdn.jsdelivr.net/gh/tsdotnet/type@master/assets/banner.svg)
+<a name="banner"><img src="https://cdn.jsdelivr.net/gh/tsdotnet/type@master/assets/banner.svg" alt="@tsdotnet/type: Check types at run time. Guards that narrow, not just test."></a>
 
 [![npm version](https://img.shields.io/npm/v/@tsdotnet/type.svg?style=flat-square)](https://www.npmjs.com/package/@tsdotnet/type)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/tsdotnet/type/blob/master/LICENSE)
